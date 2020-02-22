@@ -42,7 +42,7 @@ module.exports.insertResult = function insertResult(req, res, next) {
     var user_id = auth.getUserIdFromToken(tokenString);
     if (id1 !== id2){
         if (points1 !== points2) {
-            if (points1 < 0 || points2 < 0) {
+            if (points1 > 0 && points2 > 0) {
                 Fencing.resultCreateID()
                     .then(function (response) {
                         var result_id = response.result_id + 1;
