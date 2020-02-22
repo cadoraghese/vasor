@@ -21,9 +21,10 @@ function resultRequest() {
     request.setRequestHeader('api_key', "api_key " + token);
     request.onload = function () {
         if (request.status === 400) {
-            alert("Gift code not valid, try with another one please");
+            alert("Result not valid, try with another one please");
         } else {
-            window.location.href = getURL() + '/pages/profile.html';
+            alert("Result accepted!");
+            //window.location.href = getURL() + '/pages/profile.html';
         }
     };
     request.send(requestObj);

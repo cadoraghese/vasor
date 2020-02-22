@@ -81,6 +81,7 @@ exports.addResult = function (result_id, id1, id2, points1, points2) {
     return new Promise(function (resolve, reject) {
         resolve(sqlDB('t_result')
             .insert({
+                result_id: result_id,
                 id1: id1,
                 id2: id2,
                 points1: points1,
