@@ -1,10 +1,10 @@
 function getURL() {
-    return "http://localhost:8080";
+    //return "http://localhost:8080";
     return "https://vasor.herokuapp.com"
 }
 
 function getLocalMode() {
-    return true;
+    //return true;
     return false;
 }
 

@@ -794,7 +794,7 @@ paths:
           description: "Same fencer"
         402:
           description: "No winner"
-        402:
+        403:
           description: "Negative points"
   /fencing/fencers:
     get:
