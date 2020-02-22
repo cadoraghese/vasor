@@ -1,0 +1,156 @@
+<h1 id="documentation-of-the-backend-part">Documentation of the Backend part</h1>
+<blockquote>
+    <p>Deliverable D1</p>
+    <h2 id="general-group-information">General group information</h2>
+    <table style="border: 1px solid black; border-collapse: collapse">
+        <tr>
+            <th style="border: 1px solid black; text-align: left">Member #</th>
+            <th style="border: 1px solid black; text-align: left">Role</th>
+            <th style="border: 1px solid black; text-align: left">First name</th>
+            <th style="border: 1px solid black; text-align: left">Last name</th>
+            <th style="border: 1px solid black; text-align: left">Matricola</th>
+            <th style="border: 1px solid black; text-align: left">Email address</th>
+        </tr>
+        <tr>
+            <td style="border: 1px solid black">Member #1</td>
+            <td style="border: 1px solid black">Administrator</td>
+            <td style="border: 1px solid black">Jacopo</td>
+            <td style="border: 1px solid black">Frasson</td>
+            <td style="border: 1px solid black">905317</td>
+            <td style="border: 1px solid black">jacopo.frasson@mail.polimi.it</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid black">Member #2</td>
+            <td style="border: 1px solid black">Member</td>
+            <td style="border: 1px solid black">Davide</td>
+            <td style="border: 1px solid black">Spinelli</td>
+            <td style="border: 1px solid black">900229</td>
+            <td style="border: 1px solid black">davide2.spinelli@mail.polimi.it</td>
+        </tr>
+    </table>
+    <h2 id="links-to-other-deliverables">Links to other deliverables</h2>
+    <ul>
+        <li>Deliverable D0: the web application is accessible at <a
+                href="https://hypermedia-spinellifrasson2019.herokuapp.com">this address</a>.
+        </li>
+        <li>Deliverable D2: the YAML or JSON file containing the specification of the app API can be found at <a
+                href="https://hypermedia-spinellifrasson2019.herokuapp.com/backend/spec.yaml" target="_blank">this address</a> and is
+            also provided by swagger at <a href="https://hypermedia-spinellifrasson2019.herokuapp.com/backend/spec" target="_blank">this
+                address</a>.
+        </li>
+        <li>Deliverable D3: the SwaggerUI page of the same API is available at <a
+                href="https://hypermedia-spinellifrasson2019.herokuapp.com/backend/swaggerui" target="_blank">this address</a>.
+        </li>
+        <li>Deliverable D4: the source code of D0 is available as a zip file at <a
+                href="https://hypermedia-spinellifrasson2019.herokuapp.com/backend/app.zip" target="_blank">this address</a>.
+        </li>
+        <li>Deliverable D5: the address of the online source control repository is available <a
+                href="https://github.com/xevizero/hypermedia_project_2019" target="_blank">this address</a>. We hereby declare that this is a private repository and,
+            upon request, we will give access to the instructors.
+            <h2 id="specification">Specification</h2>
+            <h3 id="web-architecture">Web Architecture</h3>
+            Here we show a schematic representation of our application's architecture. It can be noted how the API routing is handled by Swagger, while the front end assets' routing is handled by
+            express. Express only exposes a route to the static assets, while those are individually loaded and rendered client side by the browser.
+            <img src="assets/Architecture.png" style="margin: 30px">
+            <h3 id="api">API</h3>
+            <h4 id="rest-compliance">REST compliance</h4>
+            <li><h5>Client-server architecture</h5></li>
+            The application follows this REST principle. The presentation layer is rendered client side by the user's browser, while the application layer and the data layer reside on the remote server.
+        <li><h5>Statelessness</h5></li>
+            The application follows this REST principle. In particular, login auth tokens are all handled by the application layer without saving any state between requests; tokens are then
+            sent with the request header by the client for the sake of authorization and authentication.
+        <li><h5>Cacheability</h5></li>
+            Due to the low volume of requests our server will need to handle for the scope of this project, no cacheability was explicitly coded in for requests, though it's certainly possible to
+            add in the future.
+        <li><h5>Layered system</h5></li>
+            The routing of the requests is all internally handled by the application layer, the client only contacts a black box (the API endpoint). The system could be further expanded by adding new software or hardware layers
+            without modifying the client code.
+        <li><h5>Code on demand</h5></li>
+            No code on demand functionality has been added to the project.
+        <li><h5>Uniform interface</h5></li>
+        <h6>- Resource identification in requests</h6>
+            The resources served to clients through the web API are completely separated from the actual server's internal representation (this is further explained in the Data Model section of this document).
+        <h6>- Resource manipulation through representations</h6>
+            We tried to always give the client enough information to manipulate remote resources without requiring additional useless API calls. This wasn't always possible due to time constraints, but
+            it was still kept into particular consideration.
+        <h6>- Self-descriptive messages</h6>
+            The models served by the API are self explanatory, also thanks to the topic being fairly basic.
+        <h6>- Hypermedia as the engine of application state</h6>
+            Due to the very low quantity of API endpoints and to the simplicity of the application, we didn't consider including this functionality as a priority.
+            <h4 id="openapi-resource-models">OpenAPI Resource models</h4>
+            All the following models can be seen in detail in the <a href="https://hypermedia-spinellifrasson2019.herokuapp.com/backend/swaggerui" target="_blank">swagger UI page</a> in the models section.
+        <li><h5>Book</h5></li>
+            Representation of all the information about a particular book, useful to the client for the sake of displaying such information to the user and to load the media
+            directly related to the book itself. The book's authors are also included in a string array (this was done due to time constraints, and would have been done with a full JSON object otherwise)
+        <li><h5>Author</h5></li>
+            Representation of all the information about a particular author.
+        <li><h5>Event</h5></li>
+            Representation of all the information about a particular event.
+        <li><h5>ShoppingCartItem</h5></li>
+            Object sent from the client to the server when adding a book to the shopping cart.
+        <li><h5>ShoppingCartBook</h5></li>
+            Information about a book together with the selected quantity for display in the shopping cart page.
+        <li><h5>Order</h5></li>
+            Object sent by the client to the server to place an order containing a series of books.
+        <li><h5>OrderResponse</h5></li>
+            All the information needed to display already placed orders' information to the user.
+        <li><h5>User</h5>
+            Representation of the user's data, for the display of private information.
+            <h3 id="data-model">Data model</h3>
+            We report here the same ER diagram we included in the Design Document, with colored links that connect each data model in the Open API specification to the entities in the ER diagram that
+            the application considers to create the object, or that the object is used to update.
+            <img src="assets/Data%20Model%20with%20arrows.png" style="margin: 30px; max-width: 100%">
+            <h2 id="implementation">Implementation</h2>
+            <h3 id="tools-used">Tools used</h3>
+            We used the Webstorm IDE from Jetbrains (for Windows) to do the majority of the coding. The project takes advantage of the NodeJs environment, with the following modules:
+            <li>    Express for static routing</li>
+            <li>    Swagger and Swagger-UI for API routing and Open API usage</li>
+            <li>    Cors to adhere to cors specifications.</li>
+            <li>    JWT (JSON web token) for authentication</li>
+            <li>    Knex.js for query building</li>
+            The website is hosted on Heroku, with the PostgresSQL add-on activated for database support. The database was accessed manually with PGAdmin. The APIs where tested both using the
+            Swagger UI interface, and Postman for Windows. The frontend contains static assets served by express, which include .css, .html and .js files. Some javascript scripts make
+            use of the Jquery library for the sake of simplicity.
+            <h3 id="discussion">Discussion</h3>
+
+        </li>
+        <li>How did you make sure your web application adheres to the provided OpenAPI specification?</li>
+        The web application was coded after the OpenAPI specification had been already largely thought out and specified in detail. Further edits proved necessary, but the team was able to
+        successfully coordinate and mantain consistency.
+        <li>Why do you think your web application adheres to common practices to partition the web application (static
+            assets vs. application data)
+        </li>
+        The web application follows the most common standards of basic web development. NodeJS and Express make it very easy to separate the presentation layer and the application layer in a way
+        that is transparent to the user.
+        <li>Describe synthetically why and how did you manage session state, what are the state change triggering
+            actions (e.g., POST to login etc..).
+        </li>
+        Authentication was required to allow for the basic "add to cart" and "purchase" functionalities we included in the application. The server is stateless, the session is saved on the client through
+        the use of authentication tokens: these are saved in a cookie (that expires in 24 hours), which is sent in the request header of all the API calls that require authentication. The server is able to
+        determine the user based on the token, and also if the token provided is still valid (tokens themselves are discarded after 24 hours from when they are first generated). This doesn't require any access to the
+        data layer on the server part (aside from retrieving user information).
+        <li>Which technology did you use (relational or a no-SQL database) for managing the data model?</li>
+        The database is relational and runs on the PostgresSQL RDBMS.
+            <h2
+                id="other-information">Other information</h2>
+            <h3 id="task-assignment">Task assignment</h3>
+         <p>- Spinelli worked on back end (60%), front end (10%) and OpenAPI Spec (30% of the time)<br/>
+            - Frasson worked on back end (10%), front end (80%) and OpenAPI Spec (10% of the time)</p>
+        Constant communication (often in the form of remote collaboration through video chat applications) was crucial to allow the team's coordination, in particular due to Spinelli currently being in Berlin as an Erasmus.
+        Github was also heavily used throughout the development.
+        </li>
+            <h3 id="analysis-of-existing-api">Analysis of existing API</h3>
+            This was not our first experience with REST and web services. Frasson has already made heavy use of basic REST webservices in numerous projects before, the latest being the Android mobile application
+        he developed as part of the Software Engineering 2 course last year; this web API was much simpler and the web server was coded in Python. We were both also a team during the
+        Software Engineering 1 course a few years ago, where the mobile game we developed as a group project was supposed to run on a simple socket/RMI client-server connection, but it was later adapted to
+        use a JSON based API, exposed through common java functions, for the sake of added security and control over client operations. During the years we obviously took inspiration from existing APIs to design
+        our owns, in particular after we came in contact with Facebook's graph API and Google Authentication APIs in some of our earliest projects together, back in high school.
+            <h3 id="learning-outcome">Learning outcome</h3>
+            Working with Swagger and Open API allowed us to reach a further understanding of how to code a proper REST API: our previous tries where much less cohesive and well thought out, and
+        we hadn't ever thought of using a dedicated tool like swagger to standardize, represent and mantain our APIs, which caused our earliest projects to discend into madness once the
+        complexity got out of hand. Node JS also proved to be a much more interesting environment to work within that we had first envisioned, and we're probably going to make use of it again for our
+        next web project that will go beyond the complexity of what's easily achievable with frameworks (like Python Flask).
+        We also came into this as pretty inexperienced javascript programmers, but now we have a better understanding of the language as a whole.
+        We still hate CSS and HTML graphics as the day we started.
+    </ul>
+</blockquote>

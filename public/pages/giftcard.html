@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bookaholic - Redeem</title>
+    <link rel="shortcut icon" type="image/png" href="../assets/img/favicon.ico"/>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous">
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div id="header"></div>
+<div class="giftcard-page-container">
+    <h1 class="giftcard-main-text">Input the code on your giftcard here.</h1>
+    <h1 class="giftcard-secondary-text">The money will be added to your account. It will be automatically deducted from your next purchases.</h1>
+    <form method="post" autocomplete="on" id="giftcard-form">
+        <h3 class="giftcard-instruction-text">Code:</h3>
+        <input id="code" class="giftcard-input-text" type="text" required/>
+        <div class="small-spacer"></div>
+        <hr>
+        <div class="small-spacer"></div>
+        <button id="giftcard-button" class="giftcard-confirm-button">Redeem code</button>
+        <div class="small-spacer"></div>
+    </form>
+    <div class="list-spacer"></div>
+</div>
+<div id="footer"></div>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/sessionUtils.js"></script>
+<script src="../assets/js/giftcard.js"></script>
+<script>
+    $(function(){
+        $("#header").load("header.html");
+        $("#footer").load("footer.html");
+    });
+    $("#giftcard-form").bind('submit', function(event) {
+        event.preventDefault();
+        giftCardRequest();
+    });
+</script>
+</body>

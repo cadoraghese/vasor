@@ -1,0 +1,1 @@
+window.location.href = getURL() + "/pages/home.html";

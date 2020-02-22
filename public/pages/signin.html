@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bookaholic - Login</title>
+    <link rel="shortcut icon" type="image/png" href="../assets/img/favicon.ico"/>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous">
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="color-gradient-sign">
+<div id="header"></div>
+<div class="sign-page-container">
+    <h1 class="sign-main-text">Sign in to your account to use Bookaholic!</h1>
+    <form method="post" autocomplete="on" id="signin-form">
+        <h3 class="sign-instruction-text">Email</h3>
+        <input id="email" class="sign-input-text" type="email" required/>
+        <h3 class="sign-instruction-text">Password</h3>
+        <input id="password" class="sign-input-text" type="password" required/>
+        <div class="small-spacer"></div>
+        <hr>
+        <div class="small-spacer"></div>
+        <button id="signin-button" class="sign-confirm-button">Sign in</button>
+    </form>
+    <div class="list-spacer"></div>
+</div>
+<div id="footer"></div>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/sessionUtils.js"></script>
+<script src="../assets/js/signin.js"></script>
+<script>
+    $(function(){
+        $("#header").load("header_minimal.html");
+        $("#footer").load("footer.html");
+    });
+    $("#signin-form").bind('submit', function(event) {
+        event.preventDefault();
+        signInRequest();
+    });
+</script>
+</body>
+

@@ -1,0 +1,21 @@
+<div class="event-details-button-container">
+    <button class="detailsbtn" onclick="loadLastSelection()" id="detailsButton">←</button>
+</div>
+<div class="event-root">
+    <div class="event-image-container">
+
+        <img id="event-details-image" class="event-details-image">
+    </div>
+    <div class="event-info-container">
+        <h1 id="event-details-name" class="event-details-name"></h1>
+        <h3 id="event-details-dateAndLocation" class="details-label-text"></h3>
+        <h3 id="event-details-organizer" class="details-label-text"></h3>
+        <h3 id="event-details-description" class="details-label-text"></h3>
+        <h3 id="event-details-website" class="details-label-text"></h3>
+        <h3 id="event-details-text" class="gone">Books presented:</h3>
+        <div id="event-books-container" class="event-books-container"></div>
+    </div>
+    <form class="gone" id="bookDetailsActionGeneral" action="books.html" method="GET">
+        <input class="gone" id="bookDetailsActionIsbnInput" type="text" name="isbn" />
+    </form>
+</div>

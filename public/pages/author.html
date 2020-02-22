@@ -1,0 +1,19 @@
+<div class="author-details-button-container">
+    <button class="detailsbtn" onclick="loadLastSelection()" id="detailsButton">←</button>
+</div>
+<div class="author-root">
+    <div class="author-image-container">
+        <img id="author-details-image" class="author-details-image">
+    </div>
+    <div class="author-info-container">
+        <h1 id="author-details-name" class="author-details-name"></h1>
+        <h2 id="author-details-birthday" class="details-label-text"></h2>
+        <h3 id="author-details-sexAndNationality" class="details-label-text"></h3>
+        <h3 id="author-details-biography" class="details-label-text"></h3>
+        <h3 id="author-details-text" class="gone">Works on sale:</h3>
+        <div id="author-books-container" class="author-books-container"></div>
+    </div>
+    <form class="gone" id="bookDetailsActionGeneral" action="books.html" method="GET">
+        <input class="gone" id="bookDetailsActionIsbnInput" type="text" name="isbn" />
+    </form>
+</div>

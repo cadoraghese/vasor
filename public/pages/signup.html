@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bookaholic - Register</title>
+    <link rel="shortcut icon" type="image/png" href="../assets/img/favicon.ico"/>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous">
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="color-gradient-sign">
+<div id="header"></div>
+<div class="sign-page-container">
+    <h1 class="sign-main-text">Sign up to use Bookaholic!</h1>
+    <h2 class="sign-secondary-text">Please insert the required information:</h2>
+    <h3 class="sign-instruction-text-comment">Fields denoted by a * are mandatory.</h3>
+    <form method="post" autocomplete="on" id="signup-form">
+        <div class="sign-page-inner-container">
+            <div class="sign-page-inner-container-left">
+                <h3 class="sign-instruction-text">Your name*</h3>
+                <input id="name" class="sign-input-text" type="text" required/>
+                <h3 class="sign-instruction-text">Your surname*</h3>
+                <input id="surname" class="sign-input-text" type="text" required/>
+                <h3 class="sign-instruction-text">Your email*</h3>
+                <input id="email" class="sign-input-text" type="email" required/>
+                <h3 class="sign-instruction-text">Choose a username*</h3>
+                <input id="username" class="sign-input-text" type="text" required/>
+                <h3 class="sign-instruction-text">Choose a password*</h3>
+                <input id="password" class="sign-input-text" type="password" required/>
+                <h3 class="sign-instruction-text">Repeat the password*</h3>
+                <input id="password-check" class="sign-input-text" type="password" required/>
+            </div>
+            <div class="sign-page-inner-container-right">
+                <h3 class="sign-instruction-text">Your birthday*</h3>
+                <input id="birthday" class="sign-input-text" type="date" required/>
+                <h3 class="sign-instruction-text">Your nationality</h3>
+                <input id="nationality" class="sign-input-text" type="text"/>
+                <h3 class="sign-instruction-text">Tell us something about yourself</h3>
+                <input id="biography" class="sign-input-textarea" type="text"/>
+                <h3 class="sign-instruction-text"></h3>
+                <h3 class="sign-instruction-text">Specify your sex*</h3>
+                <select id="sex" class="sign-input-text" type="text" required>
+                    <option value="" disabled selected>Sex</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Other">Other</option>
+                </select>
+                <h3 class="sign-instruction-text">Your shipping address*</h3>
+                <input id="address" class="sign-input-textarea" type="text" required/>
+                <h3 class="sign-instruction-text">Agree to Terms and Conditions*</h3>
+                <label><input type="checkbox" name="agree" value="agree" id="agreetoTos" required/>I agree</label>
+            </div>
+        </div>
+        <div class="small-spacer"></div>
+        <hr>
+        <div class="small-spacer"></div>
+        <button id="signup-button" class="sign-confirm-button">Sign up!</button>
+    </form>
+    <div class="list-spacer"></div>
+</div>
+<div id="footer"></div>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/sessionUtils.js"></script>
+<script src="../assets/js/signup.js"></script>
+<script>
+    $(function(){
+        $("#header").load("header_minimal.html");
+        $("#footer").load("footer.html");
+    });
+    $("#signup-form").bind('submit', function(event) {
+        event.preventDefault();
+        if(!checkInformation())
+            alert("The two passwords must coincide.");
+        else{
+            signUpRequest();
+        }
+    });
+</script>
+</body>

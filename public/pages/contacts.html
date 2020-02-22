@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bookaholic - Contact us</title>
+    <link rel="shortcut icon" type="image/png" href="../assets/img/favicon.ico"/>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous">
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div id="header"></div>
+<div class="contact-page-container">
+    <div class="contact-page-left">
+        <div id="contact-form-outer">
+            <h1 class="contact-main-text">Fill out this form to send us a support request</h1>
+            <form method="post" autocomplete="on" id="contact-form">
+                <h3 class="contact-instruction-text">Email</h3>
+                <input id="email" class="contact-input-text" type="email" required/>
+                <h3 class="contact-instruction-text">Object</h3>
+                <input id="object" class="contact-input-text" type="text" required/>
+                <h3 class="contact-instruction-text">Your question</h3>
+                <textarea id="question" class="contact-input-text" type="text" required></textarea>
+                <div class="small-spacer"></div>
+                <hr>
+                <div class="small-spacer"></div>
+                <button id="contact-button" class="contact-confirm-button">Send</button>
+            </form>
+            <div class="list-spacer"></div>
+        </div>
+    </div>
+    <div class="contact-page-left" id="contact-form-outer-v2" style="display: none">
+        <h1 class="contact-main-text">Thank you for your message!</h1>
+        <h3 class="contact-main-text"><a href="profile.html">Go back to your account page</a></h3>
+    </div>
+    <div class="contact-page-right">
+        <h1 class="contact-main-text">You can also contact our customer support directly:</h1>
+        <h3 class="contact-instruction-text">Email:</h3>
+        <h3 class="contact-instruction-text"><a href="mailto:support@bookaholic.fake">support@bookaholic.fake</a></h3>
+        <h3 class="contact-instruction-text">Phone:</h3>
+        <h3 class="contact-instruction-text"><a href="tel:+15555551212">+1-555-555-1212</a></h3>
+    </div>
+</div>
+
+
+
+<div id="footer"></div>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/sessionUtils.js"></script>
+<script src="../assets/js/contacts.js"></script>
+<script>
+    $(function(){
+        $("#header").load("header.html");
+        $("#footer").load("footer.html");
+    });
+    $("#contact-form").bind('submit', function(event) {
+        event.preventDefault();
+        contactRequest();
+    });
+</script>
+</body>

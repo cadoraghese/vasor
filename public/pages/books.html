@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bookaholic - Books</title>
+    <link rel="shortcut icon" type="image/png" href="../assets/img/favicon.ico"/>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous">
+    </script>
+    <script>
+        $(function(){
+            $("#header").load("header.html");
+            $("#footer").load("footer.html");
+        });
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div id="header"></div>
+<div class="sidebar-button-container">
+    <button class="openbtn" onclick="toggleNav()" id="sidebarButton">☰</button>
+</div>
+<div id="mySidebar" class="sidebar">
+    <div class="sidebar-button-outer-container">
+        <div class="sidebar-button-inner-container">
+            <div>
+                <select class="select-sidebar" id="selectGenre" name="Genre" onchange="loadGenre(false)">
+                </select>
+            </div>
+            <div>
+                <select class="select-sidebar" id="selectTheme" name="Theme" onchange="loadTheme(false)">
+                </select>
+            </div>
+
+        </div>
+    </div>
+    <div class="sidebar-spacer"></div>
+</div>
+<div class="content-side" id="root">
+
+</div>
+<div id="footer"></div>
+<script src="../assets/js/sessionUtils.js"></script>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/books.js"></script>
+<script type="text/javascript">
+    $( window ).resize(function() {
+        setSidebarHeight();
+    });
+</script>
+</body>

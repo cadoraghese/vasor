@@ -1,0 +1,1206 @@
+swagger: "2.0"
+info:
+  description: "VASOR's Server<br>The examples values for the parameters are written in the description for compatibility reasons with OpenAPI/Swagger 2.0<br>The server responses to POST requests are displayed as being of 'Unknown Type': we believe this to be due to a bug in SwaggerUI and the API functionality is not affected by this"
+  version: "1.0.0"
+  title: "VASOR (SwaggerUI)"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "davide2.spinelli@mail.polimi.it"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "vasor.herokuapp.com"
+basePath: "/api"
+tags:
+  - name: "book"
+    description: "Book related calls"
+  - name: "author"
+    description: "Author related calls"
+  - name: "user"
+    description: "User related calls"
+  - name: "event"
+    description: "Event related calls"
+  - name: "shopping_cart"
+    description: "Books temporarily in the shopping cart list"
+  - name: "order"
+    description: "User's placed orders"
+  - name: "match"
+    description: "Match related calls"
+  - name: "fencer"
+    description: "Fencer related calls"
+schemes:
+  - "https"
+  - "http"
+paths:
+  /book:
+    get:
+      x-swagger-router-controller: "Book"
+      tags:
+        - "book"
+      summary: "Details about a specific book by ISBN"
+      description: "A single ISBN value must be provided<br>Example:<br>isbn: 1234567890"
+      operationId: "getBookByISBN"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "isbn"
+          in: "query"
+          description: "ISBN of the book to be retrieved"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Book"
+        204:
+          description: "No books with this isbn"
+        400:
+          description: "Generic error"
+  /book/findByGenre:
+    get:
+      x-swagger-router-controller: "Book"
+      tags:
+        - "book"
+      summary: "Finds Books by genre"
+      description: "A single genre value must be provided<br>Example:<br>genre: Novel"
+      operationId: "findBookByGenre"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "genre"
+          in: "query"
+          description: "Genre value that needs to be considered for filter"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Book"
+        204:
+          description: "No books of this genre"
+        400:
+          description: "Generic error"
+  /book/findByTheme:
+    get:
+      x-swagger-router-controller: "Book"
+      tags:
+        - "book"
+      summary: "Finds Books by theme"
+      description: "Multiple theme values can be provided with comma separated strings
+      <br>Example:<br>theme: Fantasy<br>theme: Drama"
+      operationId: "findBookByTheme"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "theme"
+          in: "query"
+          description: "Theme values that need to be considered for filter"
+          required: true
+          type: "array"
+          items:
+            type: "string"
+            default: ""
+          collectionFormat: "multi"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Book"
+        204:
+          description: "No books with this themes"
+        400:
+          description: "Generic error"
+  /book/findBySimilarity:
+    get:
+      x-swagger-router-controller: "Book"
+      tags:
+        - "book"
+      summary: "Finds Books by similarity"
+      description: "A single ISBN value must be provided<br>Example:<br>isbn: 1234567890"
+      operationId: "findBookBySimilarity"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "isbn"
+          in: "query"
+          description: "ISBN value that needs to be considered for filter"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Book"
+        204:
+          description: "No books similar to the one indicated"
+        400:
+          description: "Generic error"
+  /book/findByAuthor:
+    get:
+      x-swagger-router-controller: "Book"
+      tags:
+        - "book"
+      summary: "Finds Books by author"
+      description: "A single Author id value must be provided<br>Example:<br>author_id: 1"
+      operationId: "findBookByAuthor"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "author_id"
+          in: "query"
+          description: "Author value that needs to be considered for filter"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Book"
+        204:
+          description: "No books from this author"
+        400:
+          description: "Generic error"
+  /book/findByEvent:
+    get:
+      x-swagger-router-controller: "Book"
+      tags:
+        - "book"
+      summary: "Finds Books by presentation event"
+      description: "A single event value must be provided<br>Example:<br>eventcode: 1"
+      operationId: "findBookByEvent"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "eventcode"
+          in: "query"
+          description: "Event code value that needs to be considered for filter"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Book"
+        204:
+          description: "No books presented at this event"
+        400:
+          description: "Generic error"
+  /book/listSuggestedReadings:
+    get:
+      x-swagger-router-controller: "Book"
+      tags:
+        - "book"
+      summary: "List books in our favorite readings list"
+      description: "No additional parameters required"
+      operationId: "listSuggestedReadings"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Book"
+        204:
+          description: "no suggested readings"
+        400:
+          description: "Generic error"
+  /book/listBestSellers:
+    get:
+      x-swagger-router-controller: "Book"
+      tags:
+        - "book"
+      summary: "List best sellers in the selected period"
+      description: "Two dates as to be provided, the initial date of the period and the final date
+      <br>Example:<br>initial_date: 2019-06-05<br>ending_date: 2019-07-04"
+      operationId: "listBestSellersByPeriod"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "initial_date"
+          in: "query"
+          description: "Initial date that needs to be considered for filter"
+          required: true
+          type: "string"
+        - name: "ending_date"
+          in: "query"
+          description: "Ending date that needs to be considered for filter"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Book"
+        204:
+          description: "No books were sold in this period"
+        400:
+          description: "Generic error"
+  /book/latest:
+    get:
+      x-swagger-router-controller: "Book"
+      tags:
+        - "book"
+      summary: "List all the books from the most recently published one"
+      description: "No additional parameters required"
+      operationId: "latest"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Book"
+        400:
+          description: "Generic error"
+  /book/getGenres:
+    get:
+      x-swagger-router-controller: "Book"
+      tags:
+        - "book"
+      summary: "Get the list of all the books' genres"
+      description: "No additional parameters required"
+      operationId: "listGenres"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                genre:
+                  type: "string"
+          examples:
+            application/json:
+              - genre: Novel
+              - genre: Collection
+        204:
+          description: "No genres"
+        400:
+          description: "Generic error"
+  /book/getThemes:
+    get:
+      x-swagger-router-controller: "Book"
+      tags:
+        - "book"
+      summary: "Get the list of all the books' themes"
+      description: "No additional parameters required"
+      operationId: "listThemes"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                genre:
+                  type: "string"
+          examples:
+            application/json:
+              - genre: Fantasy
+              - genre: Drama
+        204:
+          description: "No themes"
+        400:
+          description: "Generic error"
+  /book/search:
+    get:
+      x-swagger-router-controller: "Book"
+      tags:
+        - "book"
+      summary: "Finds Books by search key"
+      description: "A single search string must be provided<br>Example:<br>search: wind"
+      operationId: "searchBook"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "search"
+          in: "query"
+          description: "Search words that needs to be considered for response"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Book"
+        204:
+          description: "No books related to this search words"
+        400:
+          description: "Generic error"
+  /author:
+    get:
+      x-swagger-router-controller: "Author"
+      tags:
+        - "author"
+      summary: "Details about a specific author by public ID"
+      description: "A single ID value must be provided<br>Example:<br>author_id: 1"
+      operationId: "getAuthorByID"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "author_id"
+          in: "query"
+          description: "ID of the author to be retrieved"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Author"
+        204:
+          description: "No authors with this id"
+        400:
+          description: "Generic error"
+  /author/listAllAuthors:
+    get:
+      x-swagger-router-controller: "Author"
+      tags:
+        - "author"
+      summary: "List all authors"
+      description: "No information must be provided"
+      operationId: "listAllAuthors"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Author"
+        204:
+          description: "No authors"
+        400:
+          description: "Generic error"
+  /author/findByBook:
+    get:
+      x-swagger-router-controller: "Author"
+      tags:
+        - "author"
+      summary: "Finds authors by book"
+      description: "A single ISBN value must be provided<br>Example:<br>isbn: 1234567890"
+      operationId: "findAuthorsByBook"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "isbn"
+          in: "query"
+          description: "ISBN value that needs to be considered for filter"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Author"
+        204:
+          description: "No author wrote this book"
+        400:
+          description: "Generic error"
+  /author/search:
+    get:
+      x-swagger-router-controller: "Author"
+      tags:
+        - "author"
+      summary: "Finds Authors by search key"
+      description: "A single search string must be provided<br>Example:<br>search: martin"
+      operationId: "searchAuthor"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "search"
+          in: "query"
+          description: "Search words that needs to be considered for response"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Author"
+        204:
+          description: "No authors related to this search words"
+        400:
+          description: "Generic error"
+  /event:
+    get:
+      x-swagger-router-controller: "Event"
+      tags:
+        - "event"
+      summary: "Details about a specific event by public event code"
+      description: "A single code value must be provided<br>Example:<br>eventcode: 1"
+      operationId: "getEventByCode"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "eventcode"
+          in: "query"
+          description: "Code of the event to be retrieved"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Event"
+        204:
+          description: "No event with this code"
+        400:
+          description: "Generic error"
+  /event/findByBook:
+    get:
+      x-swagger-router-controller: "Event"
+      tags:
+        - "event"
+      summary: "Finds events by book"
+      description: "A single ISBN value must be provided<br>Example:<br>isbn: 1234567890"
+      operationId: "findEventsByBook"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "isbn"
+          in: "query"
+          description: "ISBN value that needs to be considered for filter"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Event"
+        204:
+          description: "No event is related to this book"
+        400:
+          description: "Generic error"
+  /event/listEventsByPeriod:
+    get:
+      x-swagger-router-controller: "Event"
+      tags:
+        - "event"
+      summary: "List events in the selected period"
+      description: "Two dates as to be provided, the initial date of the period and the final date
+      <br>Example:<br>initial_date: 2019-07-01<br>ending_date: 2019-08-01"
+      operationId: "listBestEventsByPeriod"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "initial_date"
+          in: "query"
+          description: "Initial date that needs to be considered for filter"
+          required: true
+          type: "string"
+        - name: "ending_date"
+          in: "query"
+          description: "Ending date that needs to be considered for filter"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Event"
+        204:
+          description: "No event in this period"
+        400:
+          description: "Generic error"
+  /event/search:
+    get:
+      x-swagger-router-controller: "Event"
+      tags:
+        - "event"
+      summary: "Finds Events by search key"
+      description: "A single search string must be provided<br>Example:<br>search: got"
+      operationId: "searchEvent"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "search"
+          in: "query"
+          description: "Search words that needs to be considered for response"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Event"
+        204:
+          description: "No events related to this search words"
+        400:
+          description: "Generic error"
+  /shopping_cart/list:
+    get:
+      x-swagger-router-controller: "ShoppingCart"
+      tags:
+        - "shopping_cart"
+      summary: "Finds items in the shopping cart for the logged user"
+      description: "No additional parameters required"
+      operationId: "shoppingCartList"
+      produces:
+        - "application/json"
+      security:
+        - api_key: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ShoppingCartBook"
+        204:
+          description: "No item in shopping cart"
+        400:
+          description: "Generic error"
+  /shopping_cart/add:
+    post:
+      x-swagger-router-controller: "ShoppingCart"
+      tags:
+        - "shopping_cart"
+      summary: "Add item to the shopping cart"
+      description: "The item is added to the current user's shopping cart
+      <br>Example:
+      <br>{
+      <br>\"isbn\": \"0747532699\",
+      <br>\"quantity\": 1
+      <br>}"
+      operationId: "shoppingCartAdd"
+      consumes:
+        - "application/json"
+      security:
+        - api_key: []
+      parameters:
+        - in: "body"
+          name: "shopping_cart"
+          description: "shopping_cart item that needs to be added to the cart"
+          schema:
+            $ref: '#/definitions/ShoppingCartItem'
+      responses:
+        201:
+          description: "successful operation"
+        400:
+          description: "Generic error"
+  /shopping_cart/remove:
+    delete:
+      x-swagger-router-controller: "ShoppingCart"
+      tags:
+        - "shopping_cart"
+      summary: "Remove item from the shopping cart"
+      description: "The item is removed from the current user's shopping cart
+      <br>Example:
+      <br>{
+      <br>\"isbn\": \"0747532699\",
+      <br>\"quantity\": 1
+      <br>}"
+      operationId: "shoppingCartRemove"
+      consumes:
+        - "application/json"
+      security:
+        - api_key: []
+      parameters:
+        - in: "body"
+          name: "shopping_cart"
+          description: "shopping_cart item that needs to be deleted from the cart"
+          schema:
+            $ref: '#/definitions/ShoppingCartItem'
+      responses:
+        201:
+          description: "successful operation"
+        400:
+          description: "Generic error"
+  /shopping_cart/search:
+    get:
+      x-swagger-router-controller: "ShoppingCart"
+      tags:
+        - "shopping_cart"
+      summary: "Finds items by search key"
+      description: "A single search string must be provided<br>Example:<br>search: harry potter"
+      operationId: "searchCart"
+      produces:
+        - "application/json"
+      security:
+        - api_key: []
+      parameters:
+        - name: "search"
+          in: "query"
+          description: "Search words that needs to be considered for response"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ShoppingCartBook"
+        204:
+          description: "No items related to this search words"
+        400:
+          description: "Generic error"
+  /order/list:
+    get:
+      x-swagger-router-controller: "Order"
+      tags:
+        - "order"
+      summary: "Finds orders for the logged user"
+      description: "No additional parameters required"
+      operationId: "ordersList"
+      produces:
+        - "application/json"
+      security:
+        - api_key: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/OrderResponse"
+        204:
+          description: "No order"
+        400:
+          description: "Generic error"
+  /order/place:
+    post:
+      x-swagger-router-controller: "Order"
+      tags:
+        - "order"
+      summary: "Place order for selected items"
+      description: "The items are added to the orders list for the logged user
+      <br>Example:
+      <br>{
+      <br> \"payment_method\": \"PayPal\",
+      <br> \"address\": \"Italy, Milan, Via Manzoni 10\",
+      <br>  \"order_details\": [
+      <br>   {
+      <br>    \"isbn\": \"0747532699\",
+      <br>    \"quantity\": 1,
+      <br>    \"price\": 10
+      <br>  },
+      <br>  {
+      <br>    \"isbn\": \"0553805444\",
+      <br>    \"quantity\": 2,
+      <br>   \"price\": 5
+      <br>   }
+      <br>  ]
+      <br>}"
+      operationId: "orderPlace"
+      consumes:
+        - "application/json"
+      security:
+        - api_key: []
+      parameters:
+        - in: "body"
+          name: "order"
+          description: "order placed for purchasing the books"
+          schema:
+            $ref: '#/definitions/Order'
+      responses:
+        201:
+          description: "successful operation"
+        400:
+          description: "Generic error"
+  /order/search:
+    get:
+      x-swagger-router-controller: "Order"
+      tags:
+        - "order"
+      summary: "Finds Orders by search key"
+      description: "A single search string must be provided<br>Example:<br>search: harry potter"
+      operationId: "searchOrder"
+      produces:
+        - "application/json"
+      security:
+        - api_key: []
+      parameters:
+        - name: "search"
+          in: "query"
+          description: "Search words that needs to be considered for response"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/OrderResponse"
+        204:
+          description: "No orders related to this search words"
+        400:
+          description: "Generic error"
+  /user/result:
+    post:
+      x-swagger-router-controller: "User"
+      tags:
+        - "user"
+      summary: "The account credit of the logged user is updated adding the value in the gift card"
+      description: "A single gift card code must be provided
+      <br>Example:<br>giftcard: { \"giftcard\": \"MDU4LTU2OS0wOTkt\" }"
+      operationId: "insertResult"
+      consumes:
+        - "application/json"
+      security:
+        - api_key: []
+      parameters:
+        - name: "result"
+          in: "body"
+          description: "Code of the gift card to add encoded in BASE64 with custom obfuscation"
+          required: true
+          schema:
+            $ref: '#/definitions/ResultItem'
+      responses:
+        201:
+          description: "Successful operation"
+        400:
+          description: "Generic error"
+  /user/profile:
+    get:
+      x-swagger-router-controller: "User"
+      tags:
+        - "user"
+      summary: "Retrieves profile information for the current user"
+      description: "The data is retrieved for the user in the current session"
+      operationId: "profileDetails"
+      produces:
+        - "application/json"
+      security:
+        - api_key: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/UserDetails"
+        400:
+          description: "Generic error"
+        401:
+          description: "token not valid"
+          headers:
+            WWW_Authenticate:
+              type: "string"
+  /user/signup:
+    post:
+      x-swagger-router-controller: "User"
+      tags:
+        - "user"
+      summary: "Send sign up request"
+      description: "A sign up request is sent with the information provided<br>Example:
+      <br>name: A.N.<br>surname: Other<br>password: 1234<br>username: Another
+      <br>email: another@gmail.com<br>birthday: 2000-01-01"
+      operationId: "userSignUp"
+      parameters:
+        - name: "name"
+          in: "query"
+          description: "The name of the user"
+          required: true
+          type: "string"
+        - name: "surname"
+          in: "query"
+          description: "The surname of the user"
+          required: true
+          type: "string"
+        - name: "password"
+          in: "query"
+          description: ""
+          required: true
+          type: "string"
+        - name: "username"
+          in: "query"
+          description: "The username of the user"
+          required: true
+          type: "string"
+        - name: "email"
+          in: "query"
+          description: "The email of the user"
+          required: true
+          type: "string"
+        - name: "birthday"
+          in: "query"
+          description: "The birthday of the user"
+          required: true
+          type: "string"
+      responses:
+        201:
+          description: "user inserted successfully"
+        400:
+          description: "Generic error"
+  /user/login:
+    post:
+      x-swagger-router-controller: "User"
+      tags:
+        - "user"
+      summary: "Send sign in request"
+      description: "A sign in request is sent with the information provided<br>Example:
+      <br>email: another@gmail.com<br>password: 1234"
+      operationId: "userSignIn"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "email"
+          in: "query"
+          description: "The email of the user"
+          required: true
+          type: "string"
+        - name: "password"
+          in: "query"
+          description: "The password of the user"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              token:
+                type: "string"
+        400:
+          description: "Generic error"
+        401:
+          description: "Credentials not valid"
+          headers:
+            WWW_Authenticate:
+              type: "string"
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    in: "header"
+    name: "api_key"
+    description: "format 'api_key xxxxxx.yyyyyyy.zzzzzz'"
+definitions:
+  Book:
+    type: "object"
+    properties:
+      isbn:
+        type: "string"
+      authors:
+        type: "string"
+      themes:
+        type: "string"
+      title:
+        type: "string"
+      description:
+        type: "string"
+      genre:
+        type: "string"
+      picture:
+        type: "string"
+      list_price:
+        type: "number"
+      price:
+        type: "number"
+      pages:
+        type: "integer"
+      publisher:
+        type: "string"
+      release_date:
+        type: "string"
+      format:
+        type: "string"
+      collection:
+        type: "string"
+      language:
+        type: "string"
+      availability:
+        type: "string"
+      editor_choice:
+        type: "integer"
+    xml:
+      name: "Tag"
+    example:
+      isbn: '1234567890'
+      authors: '1:George Martin'
+      themes: Fantasy,Politics
+      title: Winds of Winter
+      description: Long description
+      genre: Novel
+      picture: Winds of Winter.jpg
+      list_price: 30
+      price: 20
+      pages: 1500
+      publisher: No One
+      release_date: '2049-12-31'
+      format: Hardback
+      collection: A Song of Ice and Fire
+      language: English
+      availability: Not Available
+      editor_choice: 1
+  Author:
+    type: "object"
+    properties:
+      author_id:
+        type: "integer"
+      name:
+        type: "string"
+      surname:
+        type: "string"
+      birthday:
+        type: "string"
+      nationality:
+        type: "string"
+      biography:
+        type: "string"
+      picture:
+        type: "string"
+      sex:
+        type: "string"
+        enum:
+          - "Male"
+          - "Female"
+          - "Other"
+        default: "Other"
+    xml:
+      name: "Tag"
+    example:
+      author_id: 1
+      name: George
+      surname: Martin
+      birthday: '1948-09-20T00:00:00.000Z'
+      nationality: American
+      biography: Long Biography
+      picture: George Martin.jpg
+      sex: Male
+  Event:
+    type: "object"
+    properties:
+      eventcode:
+        type: "string"
+      name:
+        type: "string"
+      description:
+        type: "string"
+      location:
+        type: "string"
+      date:
+        type: "string"
+      organizer:
+        type: "string"
+      website:
+        type: "string"
+      picture:
+        type: "string"
+    xml:
+      name: "Tag"
+    example:
+      eventcode: '1'
+      name: GoT Premiere
+      description: Premiere of the pilot of Game of Thrones with sponsorship of the first book
+      location: Home Box Office, Santa Monica, California
+      date: '2011-09-01T00:00:00.000Z'
+      organizer: HBO
+      website: https://www.example.com
+      picture: GoT Premiere.jpg
+  ResultItem:
+    type: "object"
+    properties:
+      id1:
+        type: "integer"
+      id2:
+        type: "integer"
+      points1:
+        type: "integer"
+      points2:
+        type: "integer"
+    xml:
+      name: "Tag"
+    example:
+      isbn: '0747532699'
+      quantity: 1
+  ShoppingCartItem:
+    type: "object"
+    properties:
+      isbn:
+        type: "string"
+      quantity:
+        type: "integer"
+    xml:
+      name: "Tag"
+    example:
+      isbn: '0747532699'
+      quantity: 1
+  ShoppingCartBook:
+    type: "object"
+    properties:
+      isbn:
+        type: "string"
+      title:
+        type: "string"
+      description:
+        type: "string"
+      genre:
+        type: "string"
+      picture:
+        type: "string"
+      list_price:
+        type: "number"
+      price:
+        type: "number"
+      pages:
+        type: "integer"
+      publisher:
+        type: "string"
+      release_date:
+        type: "string"
+      format:
+        type: "string"
+      collection:
+        type: "string"
+      language:
+        type: "string"
+      availability:
+        type: "string"
+      editor_choice:
+        type: "integer"
+      quantity:
+        type: "integer"
+    xml:
+      name: "Tag"
+    example:
+      isbn: 0747532699
+      quantity: 1
+      title: Harry Potter and the Philosopher's Stone
+      description: 'Long description'
+      genre: Novel
+      picture: Harry Potter and the Philosopher's Stone.jpg
+      list_price: 10
+      price: 8.5
+      pages: 223
+      publisher: Bloomsbury
+      release_date: '1997-06-26T00:00:00.000Z'
+      format: Paperback
+      collection: Harry Potter
+      language: English
+      availability: Available
+      editor_choice: 1
+
+  Order:
+    type: "object"
+    properties:
+      order_details:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            isbn:
+              type: "string"
+            quantity:
+              type: "integer"
+            price:
+              type: "number"
+      payment_method:
+        type: "string"
+        enum:
+          - "Credit Card"
+          - "PayPal"
+        default: "PayPal"
+      address:
+        type: "string"
+    xml:
+      name: "Tag"
+    example:
+      payment_method: PayPal
+      address: Italy, Milan, Via Manzoni 10
+      order_details:
+        - isbn: '0747532699'
+          quantity: 1
+          price: 10
+        - isbn: '0553805444'
+          quantity: 2
+          price: 5
+  OrderResponse:
+    type: "object"
+    properties:
+      order_number:
+        type: "string"
+      order_details:
+        type: "string"
+        description: "isbn1{title1{picture1{quantity1{price1~isbn2{title2{picture2{quantity2{price2~..."
+      payment_method:
+        type: "string"
+        enum:
+          - "Credit Card"
+          - "PayPal"
+        default: "PayPal"
+      tracking_number:
+        type: "string"
+      shipping_date:
+        type: "string"
+      date:
+        type: "string"
+      status:
+        type: "string"
+        enum:
+          - "pending"
+          - "shipped"
+          - "completed"
+        default: "pending"
+      address:
+        type: "string"
+    xml:
+      name: "Tag"
+    example:
+      order_number: 19
+      order_details: '0316219185{Baptism of Fire{Baptism of Fire.jpg{1{10.87~1338201123{Mortal Engines{Mortal Engines.jpg{1{8.74'
+      date: '2019-07-03T00:00:00.000Z'
+      shipping_date: '2019-07-10T00:00:00.000Z'
+      payment_method: PayPal
+      tracking_number: '19'
+      status: pending
+      address: Siegmunds Hof 17
+  UserDetails:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      surname:
+        type: "string"
+      username:
+        type: "string"
+      email:
+        type: "string"
+      birthday:
+        type: "string"
+    xml:
+      name: "Tag"
+    example:
+      name: A.N.
+      surname: Other
+      username: Another
+      email: another@gmail.com
+      birthday: '2000-01-01T00:00:00.000Z'

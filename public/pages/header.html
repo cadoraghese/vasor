@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<div class="grid-container">
+    <div class="header" id="main-header">
+        <div class="header-up" id="header-up" >
+
+        </div>
+        <div class="header-down">
+            <form class="gone" id="bookActionGeneral" action="books.html" method="GET">
+                <input class="gone" id="bookActionGeneralInput" type="text" name="action" />
+            </form>
+            <a id="bookspagebtn" class="header-down-element-a" href="#" onclick="booksPage(0)">Books</a>
+            <a id="suggestedpagebtn" class="header-down-element-b" href="#" onclick="booksPage(1)">Our suggestions</a>
+            <a id="bestsellerspagebtn" class="header-down-element-c" href="#" onclick="booksPage(2)">Best sellers</a>
+            <a id="authorspagebtn" class="header-down-element-d" href="authors.html">Authors</a>
+            <a id="eventspagebtn" class="header-down-element-e" href="events.html">Events</a>
+            <a id="cartpagebtn" class="header-down-element-f" id="cart-button" href="cart.html">Shopping cart</a>
+        </div>
+    </div>
+</div>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous">
+</script>
+<script>
+    $(function(){
+        try {
+            setActiveBtn();
+        }
+        catch(err) {
+        }
+        $("#header-up").load(("header_up.html"), function () {
+            activateHomeBtn();
+            loadSearchPlaceholder();
+            try {
+                setActiveBtnUp();
+            }
+            catch(err) {
+            }
+        });
+    });
+</script>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/sessionUtils.js"></script>

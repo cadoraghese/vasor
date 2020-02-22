@@ -1,0 +1,40 @@
+<div class="book-details-button-container">
+    <button class="detailsbtn" onclick="loadLastSelection()" id="detailsButton">←</button>
+</div>
+<div class="book-root">
+    <div class="book-image-container">
+        <img id="book-details-image" class="book-details-image">
+    </div>
+    <div class="book-info-container">
+        <h1 id="book-details-title" class="book-details-title"></h1>
+        <h2 id="book-details-authors" class="book-details-authors"></h2>
+        <h2 id="quantity" class="book-details-quantity">Quantity:</h2>
+        <select id="quantity_" class="select-quantity-cart-details"></select>
+        <button id="add-to-cart-button" class="book-details-addtocart">Add to cart</button>
+        <h3 id="book-details-genre" class="details-label-text"></h3>
+        <h3 id="book-details-themes" class="details-label-text"></h3>
+        <h3 id="book-details-description" class="details-label-text"></h3>
+        <h3 id="book-details-price" class="details-label-text"></h3>
+        <h3 id="book-details-pages" class="details-label-text"></h3>
+        <h3 id="book-details-publisher" class="details-label-text"></h3>
+        <h3 id="book-details-release" class="details-label-text"></h3>
+        <h3 id="book-details-isbn" class="details-label-text"></h3>
+        <h3 id="book-details-format" class="details-label-text"></h3>
+        <h3 id="book-details-collection" class="details-label-text"></h3>
+        <h3 id="book-details-availability" class="details-label-text"></h3>
+        <h3 id="book-details-language" class="details-label-text"></h3>
+        <h3 id="book-details-text" class="gone">Similar books:</h3>
+        <div id="similar-books-container" class="similar-books-container"></div>
+        <h3 id="event-details-text" class="gone">Related events:</h3>
+        <div id="event-container" class="event-book-container"></div>
+    </div>
+    <form class="gone" id="authorActionGeneral" action="authors.html" method="GET">
+        <input class="gone" id="authorActionGeneralInput" type="text" name="action" />
+    </form>
+    <form class="gone" id="eventActionGeneral" action="events.html" method="GET">
+        <input class="gone" id="eventActionGeneralInput" type="text" name="action" />
+    </form>
+    <form class="gone" id="bookDetailsActionGeneral" action="books.html" method="GET">
+        <input class="gone" id="bookDetailsActionIsbnInput" type="text" name="isbn" />
+    </form>
+</div>
