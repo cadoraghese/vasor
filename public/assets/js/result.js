@@ -9,10 +9,10 @@ if (getLocalMode()) {
 }
 
 function resultRequest() {
-    let id1_value = document.getElementById("id1").value;
-    let id2_value = document.getElementById("id2").value;
-    let points1_value = document.getElementById("points1").value;
-    let points2_value = document.getElementById("points2").value;
+    let id1_value = parseInt(document.getElementById("id1").value);
+    let id2_value = parseInt(document.getElementById("id2").value);
+    let points1_value = parseInt(document.getElementById("points1").value);
+    let points2_value = parseInt(document.getElementById("points2").value);
     let request = new XMLHttpRequest();
     let obj = {id1: id1_value, id2: id2_value, points1: points1_value, points2: points2_value};
     let requestObj = JSON.stringify(obj);
