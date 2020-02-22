@@ -17,14 +17,21 @@
     <h1 class="giftcard-main-text">Input the code on your result here.</h1>
     <h1 class="giftcard-secondary-text">The money will be added to your account. It will be automatically deducted from your next purchases.</h1>
     <form method="post" autocomplete="on" id="giftcard-form">
-        <h3 class="giftcard-instruction-text">ID1:</h3>
-        <input id="id1" class="giftcard-input-text" type="number" required/>
-        <h3 class="giftcard-instruction-text">ID2:</h3>
-        <input id="id2" class="giftcard-input-text" type="number" required/>
-        <h3 class="giftcard-instruction-text">Points1:</h3>
+
+        <h3 class="giftcard-instruction-text">Tiratore 1:</h3>
+        <datalist id="fencers1"></datalist>
+        <input list="fencers1" id="fencer1" class="giftcard-input-text" placeholder="Search.." required/>
+
+        <h3 class="giftcard-instruction-text">Tiratore 2:</h3>
+        <datalist id="fencers2"></datalist>
+        <input list="fencers2" id="fencer2" class="giftcard-input-text" placeholder="Search.." required/>
+
+        <h3 class="giftcard-instruction-text">Punteggio 1:</h3>
         <input id="points1" class="giftcard-input-text" type="number" required/>
-        <h3 class="giftcard-instruction-text">Points2:</h3>
+
+        <h3 class="giftcard-instruction-text">Punteggio 2:</h3>
         <input id="points2" class="giftcard-input-text" type="number" required/>
+
         <div class="small-spacer"></div>
         <hr>
         <div class="small-spacer"></div>

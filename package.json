@@ -1,5 +1,5 @@
 {
-  "name": "hypermedia_2019",
+  "name": "vasor",
   "version": "1.0.0",
   "description": "Hypermedia Project for 2019 Politecnico Course",
   "main": "index.js",
@@ -31,12 +31,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xevizero/hypermedia_project_2019.git"
+    "url": "git+https://github.com/cadoraghese/vasor.git"
   },
   "author": "Jacopo Frasson, Davide Spinelli",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/xevizero/hypermedia_project_2019/issues"
+    "url": "https://github.com/cadoraghese/vasor/issues"
   },
-  "homepage": "https://github.com/xevizero/hypermedia_project_2019#readme"
+  "homepage": "https://github.com/cadoraghese/vasor#readme"
 }
