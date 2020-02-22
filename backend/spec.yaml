@@ -790,6 +790,12 @@ paths:
           description: "Successful operation"
         400:
           description: "Generic error"
+        401:
+          description: "Same fencer"
+        402:
+          description: "No winner"
+        402:
+          description: "Negative points"
   /fencing/fencers:
     get:
       x-swagger-router-controller: "Fencing"

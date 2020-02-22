@@ -31,7 +31,7 @@ exports.getFencers = function () {
  * giftcard String Code of the gift card to add encoded in BASE64 with custom obfuscation
  * no response value expected for this operation
  **/
-exports.addResult = function (result_id, id1, id2, points1, points2) {
+exports.addResult = function (result_id, id1, id2, points1, points2, date) {
     return new Promise(function (resolve, reject) {
         resolve(sqlDB('t_result')
             .insert({
@@ -40,6 +40,7 @@ exports.addResult = function (result_id, id1, id2, points1, points2) {
                 id2: id2,
                 points1: points1,
                 points2: points2,
+                date: date,
                 }
             )
         );

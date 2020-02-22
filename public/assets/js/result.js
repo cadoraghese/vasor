@@ -63,9 +63,14 @@ function resultRequest() {
     request.onload = function () {
         if (request.status === 400) {
             alert("Result not valid, try with another one please");
+        } else if (request.status === 401) {
+            alert("Result not valid, you inserted the same fencer twice");
+        } else if (request.status === 402) {
+            alert("Result not valid, it's a tie, there is no clear winner");
+        } else if (request.status === 403) {
+            alert("Result not valid, seriously? Negative points?");
         } else {
             alert("Result accepted!");
-            //window.location.href = getURL() + '/pages/profile.html';
         }
     };
     request.send(requestObj);
