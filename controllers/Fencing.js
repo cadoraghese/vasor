@@ -38,36 +38,44 @@ module.exports.insertResult = function insertResult(req, res, next) {
     var token = req.headers.api_key;
     var tokenString = token.split(" ")[1];
     var user_id = auth.getUserIdFromToken(tokenString);
-    Fencing.resultCreateID()
-        .then(function (response) {
-            var result_id = response.result_id + 1;
-            Fencing.addResult(result_id, id1, id2, points1, points2)
+    if (id1 != id2){
+        if (points1 != points2) {
+            Fencing.resultCreateID()
                 .then(function (response) {
-                    Fencing.checkResult(result_id)
+                    var result_id = response.result_id + 1;
+                    Fencing.addResult(result_id, id1, id2, points1, points2)
                         .then(function (response) {
-                            if (Object.keys(response).length > 0) {
-                                res.statusCode = 201;
-                                res.end("Result added successfully");
-                            } else {
-                                var err = new Error('Error 400: result not added');
-                                err['code'] = 400400;
-                                throw err;
-                            }
+                            Fencing.checkResult(result_id)
+                                .then(function (response) {
+                                    if (Object.keys(response).length > 0) {
+                                        res.statusCode = 201;
+                                        res.end("Result added successfully");
+                                    } else {
+                                        var err = new Error('Error 400: result not added');
+                                        err['code'] = 400400;
+                                        throw err;
+                                    }
+                                })
+                                .catch(function (response) {
+                                    if (response && response.code && response.code === 400400) {
+                                        utils.writeJson(res, response.message, 400);
+                                    } else {
+                                        utils.writeJson(res, response.toString(), 400);
+                                    }
+                                })
                         })
                         .catch(function (response) {
-                            if (response && response.code && response.code === 400400) {
-                                utils.writeJson(res, response.message, 400);
-                            } else {
-                                utils.writeJson(res, response.toString(), 400);
-                            }
+                            utils.writeJson(res, response.toString(), 400);
                         })
                 })
                 .catch(function (response) {
-                    utils.writeJson(res, response.toString(), 400);
-                })
-        })
-        .catch(function (response) {
-            utils.writeJson(res, response, 400);
-        });
+                    utils.writeJson(res, response, 400);
+                });
+        } else {
+            utils.writeJson(res, 'No winner!', 400);
+        }
+    } else {
+        utils.writeJson(res, 'Same fencer!', 400);
+    }
 };
 
