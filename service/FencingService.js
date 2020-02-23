@@ -19,7 +19,20 @@ exports.fencingDBConnection = function (database) {
  **/
 exports.getFencers = function () {
     return new Promise(function (resolve, reject) {
-        resolve(sqlDB('t_fencer').select('fencer_id', 'name', 'surname', 'nickname', 'year'));
+        resolve(sqlDB('t_fencer').select('fencer_id', 'name', 'surname', 'nickname', 'year')
+            .orderBy('name'));
+    });
+}
+
+
+exports.getResults = function (initial_date, ending_date) {
+    return new Promise(function (resolve, reject) {
+        resolve(sqlDB('t_result').join('t_fencer AS t_fencer_1', 't_fencer_1.fencer_id', 't_result.id1')
+            .join('t_fencer AS t_fencer_2', 't_fencer_2.fencer_id', 't_result.id2')
+            .select('t_fencer_1.fencer_id AS id1', 't_fencer_1.name AS name1', 't_fencer_1.surname AS surname1', 't_fencer_1.nickname AS nickname1',
+                't_fencer_2.fencer_id AS id2', 't_fencer_2.name AS name2', 't_fencer_2.surname AS surname2', 't_fencer_2.nickname AS nickname2',
+                't_result.points1', 't_result.points2', 't_result.date')
+            .whereBetween('date', [initial_date, ending_date]))
     });
 }
 

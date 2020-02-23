@@ -14,9 +14,9 @@
 <body>
 <div id="header"></div>
 <div class="giftcard-page-container">
-    <h1 class="giftcard-main-text">Input the code on your result here.</h1>
-    <h1 class="giftcard-secondary-text">The money will be added to your account. It will be automatically deducted from your next purchases.</h1>
-    <form method="post" autocomplete="on" id="giftcard-form">
+    <h1 class="giftcard-secondary-text">Inserisci i tiratori e il risultato.</h1>
+    <h1 class="giftcard-secondary-text">Comincia a digitare il nome, cognome o soprannome per selezionare il tiratore.</h1>
+    <form method="post" autocomplete="on" id="insert-result-form">
 
         <h3 class="giftcard-instruction-text">Tiratore 1:</h3>
         <datalist id="fencers1"></datalist>
@@ -49,7 +49,7 @@
         $("#header").load("header.html");
         $("#footer").load("footer.html");
     });
-    $("#giftcard-form").bind('submit', function(event) {
+    $("#insert-result-form").bind('submit', function(event) {
         event.preventDefault();
         resultRequest();
     });

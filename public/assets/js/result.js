@@ -17,7 +17,6 @@ function loadFencers(token) {
     request.setRequestHeader('api_key', "api_key " + token);
     request.onload = function () {
         let data = JSON.parse(this.response);
-        console.log(data);
         editFencersDropdown(data);
         //populateUserInfo(data, request.status)
     };
@@ -27,10 +26,10 @@ function loadFencers(token) {
 function editFencersDropdown(data) {
     html = '';
     for (let i = 0; i < data.length; i++) {
-        html+='<option data-value="'+data[i].fencer_id+'" value="'+data[i].name+'">';
-        html+='<option data-value="'+data[i].fencer_id+'" value="'+data[i].surname+'">';
         if (data[i].nickname != null) {
-            html+='<option data-value="'+data[i].fencer_id+'" value="'+data[i].nickname+'">';
+            html+='<option data-value="'+data[i].fencer_id+'" value="'+data[i].name+' '+data[i].surname+', '+data[i].nickname+'">';
+        } else {
+            html+='<option data-value="'+data[i].fencer_id+'" value="'+data[i].name+' '+data[i].surname+'">';
         }
     }
     document.getElementById('fencers1').innerHTML = html;
@@ -70,6 +69,7 @@ function resultRequest() {
         } else if (request.status === 403) {
             alert("Result not valid, seriously? Negative points?");
         } else {
+            document.getElementById("insert-result-form").reset();
             alert("Result accepted!");
         }
     };

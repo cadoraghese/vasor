@@ -15,7 +15,7 @@ function loadSessionButtons() {
 
     if (getLocalMode() || sessionCookie != null) {
         signin_button.setAttribute("class", "gone");
-        signup_button.innerHTML = "Account & Orders";
+        signup_button.innerHTML = "Account";
         signup_button.setAttribute("href", "profile.html");
     } else {
         signin_button.innerHTML = "Sign In";
